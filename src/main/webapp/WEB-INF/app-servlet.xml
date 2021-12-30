@@ -14,32 +14,13 @@
 
     <mvc:annotation-driven/>
 
-    <bean id="productService" class="com.luxoft.oleksandr_shevchenko.webshop.service.ProductService">
-        <constructor-arg ref="productDao"/>
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="classpath:templates/"/>
     </bean>
 
-    <bean id="productDao" class="com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc.JdbcProductDao"/>
-
-    <bean id="userService" class="com.luxoft.oleksandr_shevchenko.webshop.service.UserService">
-        <constructor-arg ref="userDao"/>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".html"/>
     </bean>
-
-    <bean id="userDao" class="com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc.JdbcUserDao"/>
-
-    <bean id="securityService" class="com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService">
-        <constructor-arg ref="userService"/>
-        <constructor-arg ref="userTokens"/>
-    </bean>
-
-
-
-<!--    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
-<!--        <property name="templateLoaderPath" value="classpath:templates/"/>-->
-<!--    </bean>-->
-
-<!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
-<!--        <property name="prefix" value=""/>-->
-<!--        <property name="suffix" value=".html"/>-->
-<!--    </bean>-->
 
 </beans>

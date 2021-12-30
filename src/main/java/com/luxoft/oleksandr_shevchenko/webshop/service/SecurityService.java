@@ -2,6 +2,7 @@ package com.luxoft.oleksandr_shevchenko.webshop.service;
 
 
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +12,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class SecurityService {
-    private final List<String> userTokens;
+
+    private List<String> userTokens = Collections.synchronizedList(new ArrayList<>());
     private final UserService userService;
 
+    public List<String> getUserTokens() {
+        return userTokens;
+    }
+
     public SecurityService(List<String> userTokens, UserService userService) {
-        this.userTokens = userTokens;
         this.userService = userService;
     }
 
     public boolean isAuth(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
+        System.out.println("userTokens: " + userTokens);
         if(cookies !=null) {
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("user-token")) {

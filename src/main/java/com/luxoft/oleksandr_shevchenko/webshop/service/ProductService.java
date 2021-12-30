@@ -2,11 +2,13 @@ package com.luxoft.oleksandr_shevchenko.webshop.service;
 
 import com.luxoft.oleksandr_shevchenko.webshop.dao.ProductDao;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.Product;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Component
 public class ProductService {
     private ProductDao productDao;
 

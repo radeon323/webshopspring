@@ -1,12 +1,13 @@
 package com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc;
 
 import com.luxoft.oleksandr_shevchenko.webshop.dao.UserDao;
-import com.luxoft.oleksandr_shevchenko.webshop.entity.Product;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.Objects;
 
+@Component
 public class JdbcUserDao implements UserDao {
     static String jdbcURL = "jdbc:postgresql://localhost:5432/postgres";
     static String jdbcUser = "postgres";
