@@ -1,6 +1,8 @@
 package com.luxoft.oleksandr_shevchenko.webshop.web.filter;
 
 import com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService;
+import org.springframework.web.filter.GenericFilterBean;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "securityFilter", urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST})
-public class SecurityFilter implements Filter {
+//@WebFilter(filterName = "securityFilter", urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST})
+public class SecurityFilter extends GenericFilterBean {
 
     private final SecurityService securityService;
     private List<String> allowedPaths = List.of("/login", "/logout", "/register");

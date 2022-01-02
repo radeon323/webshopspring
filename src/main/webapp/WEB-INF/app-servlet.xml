@@ -14,9 +14,9 @@
 
     <mvc:annotation-driven/>
 
-<!--    <mvc:interceptors>-->
-<!--        <bean class="com.luxoft.oleksandr_shevchenko.webshop.web.filter.SecurityInterceptor" />-->
-<!--    </mvc:interceptors>-->
+    <mvc:interceptors>
+        <bean class="com.luxoft.oleksandr_shevchenko.webshop.web.filter.SecurityInterceptor" />
+    </mvc:interceptors>
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="classpath:templates/"/>
