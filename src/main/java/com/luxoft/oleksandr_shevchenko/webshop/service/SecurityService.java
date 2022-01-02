@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Component
+
 public class SecurityService {
 
     private List<String> userTokens = Collections.synchronizedList(new ArrayList<>());
@@ -22,7 +22,7 @@ public class SecurityService {
         return userTokens;
     }
 
-    public SecurityService(List<String> userTokens, UserService userService) {
+    public SecurityService(UserService userService) {
         this.userService = userService;
     }
 

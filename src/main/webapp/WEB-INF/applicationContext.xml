@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="com.luxoft.oleksandr_shevchenko.webshop.service.UserService">
+        <constructor-arg ref="userDao"/>
+    </bean>
+
+    <bean id="userDao" class="com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc.JdbcUserDao"/>
+
+    <bean id="productService" class="com.luxoft.oleksandr_shevchenko.webshop.service.ProductService">
+        <constructor-arg ref="productDao"/>
+    </bean>
+
+    <bean id="productDao" class="com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc.JdbcProductDao"/>
+
+    <bean id="securityService" class="com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService">
+        <constructor-arg ref="userService"/>
+    </bean>
+
+
+
+</beans>

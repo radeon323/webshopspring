@@ -1,7 +1,6 @@
 package com.luxoft.oleksandr_shevchenko.webshop.web.filter;
 
 import com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "SecurityFilter", urlPatterns = "/*")
+@WebFilter(filterName = "securityFilter", urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
 
     private final SecurityService securityService;
@@ -19,6 +18,7 @@ public class SecurityFilter implements Filter {
         this.securityService = securityService;
     }
 
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)  servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse)  servletResponse;

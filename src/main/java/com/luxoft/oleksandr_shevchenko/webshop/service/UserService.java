@@ -2,11 +2,10 @@ package com.luxoft.oleksandr_shevchenko.webshop.service;
 
 import com.luxoft.oleksandr_shevchenko.webshop.dao.UserDao;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.User;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 
-@Component
+
 public class UserService {
     private UserDao userDao;
 
