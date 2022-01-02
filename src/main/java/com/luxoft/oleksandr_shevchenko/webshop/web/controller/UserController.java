@@ -6,7 +6,6 @@ import com.luxoft.oleksandr_shevchenko.webshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +42,7 @@ public class UserController {
     protected String login(@RequestParam String email, @RequestParam String password,
                            HttpSession session, HttpServletResponse resp, Model model) {
 
-        System.out.println("email - " + email + " : password - " + password + " " + userService.isUserExist(email));
+        System.out.println("email - " + email + " : password - " + password + " is user exist?" + userService.isUserExist(email));
 
         if(userService.isUserExist(email)) {
             User user = userService.findByEmail(email);
@@ -82,7 +81,6 @@ public class UserController {
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     protected String logout(HttpServletRequest req, HttpServletResponse resp) {
-        Cookie[] cookies = req.getCookies();
         String userToken = securityService.getUserToken(req);
         Cookie cookie = new Cookie("user-token", userToken);
         cookie.setValue(null);
