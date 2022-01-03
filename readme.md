@@ -1,22 +1,30 @@
 # Web-shop
-Simple webshop based on Spring
+##Simple webshop based on Spring
 
-CREATE TABLE products( <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;id SERIAL not NULL, <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;name VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;price VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;creation_date VARCHAR(50) <br/>
-);
-<br/><br/>
+### Installation guide
 
-CREATE TABLE users ( <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;id SERIAL not NULL, <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;email VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;password VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;gender VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;firstName VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;lastName VARCHAR(50), <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;about TEXT, <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;age INT NOT NULL DEFAULT 0 <br/>
+#### 1. Run docker command to start postgreSQL database:
+``docker run --name=main-pg --env=POSTGRES_USER=postgres --env=POSTGRES_PASSWORD=postgres --env=POSRGRES_DB=postgres -p 5432:5432 postgres``
+
+#### 2. Create database with name `postgres`
+
+#### 3. Create tables
+```sql
+CREATE TABLE products( 
+    id SERIAL not NULL,
+    name VARCHAR(50),
+    price VARCHAR(50),
+    creation_date VARCHAR(50)
 );
-<br/><br/>
+
+CREATE TABLE users(
+    id SERIAL not NULL,
+    email VARCHAR(50),
+    password VARCHAR(50),
+    gender VARCHAR(50),
+    firstName VARCHAR(50),
+    lastName VARCHAR(50),
+    about TEXT,
+    age INT NOT NULL DEFAULT 0
+);
+```
