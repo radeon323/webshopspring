@@ -27,7 +27,7 @@ public class UserService {
         userDao.edit(user);
     }
 
-    public User prFindById(int id) {
+    public User usrFindById(int id) {
         return userDao.usrFindById(id);
     }
 

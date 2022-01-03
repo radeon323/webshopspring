@@ -5,7 +5,7 @@ CREATE TABLE products(
    creation_date VARCHAR(50)
 );
 
-CREATE TABLE users (
+CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     email VARCHAR(50),
     password VARCHAR(50),

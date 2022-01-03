@@ -6,9 +6,7 @@ import com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,33 +16,34 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
-public class ProductController {
+@RequestMapping("/products")
+public class ProductsController {
 
     private final ProductService productService;
     private final SecurityService securityService;
 
 
     @Autowired
-    public ProductController(ProductService productService, SecurityService securityService) {
+    public ProductsController(ProductService productService, SecurityService securityService) {
         this.productService = productService;
         this.securityService = securityService;
     }
 
 
-    @RequestMapping(path = "/products", method = RequestMethod.GET)
+    @GetMapping()
     protected String showAllProducts(HttpServletRequest req, Model model) {
         dataForProductsList(req, model);
         return "products_list";
     }
 
 
-    @RequestMapping(path = "/products/add", method = RequestMethod.GET)
+    @GetMapping("/add")
     protected String getAddProductPage() {
         return "add_product";
     }
 
 
-    @RequestMapping(path = "/products/add", method = RequestMethod.POST)
+    @PostMapping("/add")
     protected String addProduct(@RequestParam String name, @RequestParam String price, Model model) {
             try {
                 if(name != null && name.length() > 0 && price != null) {
@@ -76,7 +75,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(path = "/products/delete", method = RequestMethod.POST)
+    @PostMapping("/delete")
     protected String deleteProduct(HttpServletRequest req, Model model) {
         dataForProductsList(req, model);
 
@@ -92,7 +91,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(path = "/products/edit", method = RequestMethod.GET)
+    @GetMapping("/edit")
     protected String getEditProductPage(@RequestParam String id, Model model) {
         Product product = productService.prFindById(Integer.parseInt(id));
         model.addAttribute("product", product);
@@ -100,7 +99,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(path = "/products/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     protected String editProduct(@RequestParam String id, @RequestParam String name, @RequestParam String price, Model model) {
             try {
                 Product product = Product.builder().
@@ -134,9 +133,9 @@ public class ProductController {
     private void dataForProductsList(HttpServletRequest req, Model model) {
         List<Product> products = productService.findAll();
         HttpSession session = req.getSession();
-        String email = (String) session.getAttribute("email");
+        String email = (String) session.getAttribute("usrEmail");
         model.addAttribute("products", products);
-        model.addAttribute("email", email);
+        model.addAttribute("usrEmail", email);
         model.addAttribute("login", Boolean.toString(securityService.isAuth(req)));
     }
 

@@ -26,12 +26,47 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public void remove(int id) {
-
+        try (Connection connection = connect();
+            PreparedStatement statement = connection.prepareStatement(DELETE_BY_ID)) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void edit(User user) {
+        editEmailAndPassword(user);
+        editInfo(user);
+    }
 
+
+    public void editEmailAndPassword(User user) {
+        try (Connection connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BY_ID_PASS)) {
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editInfo(User user) {
+        try (Connection connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BY_ID_DATA)) {
+            preparedStatement.setString(1, user.getGender());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getAbout());
+            preparedStatement.setInt(5, user.getAge());
+            preparedStatement.setInt(6, user.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
