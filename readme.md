@@ -6,9 +6,7 @@
 #### 1. Run docker command to start postgreSQL database:
 ``docker run --name=main-pg --env=POSTGRES_USER=postgres --env=POSTGRES_PASSWORD=postgres --env=POSRGRES_DB=postgres -p 5432:5432 postgres``
 
-#### 2. Create database with name `postgres`
-
-#### 3. Create tables
+#### 2. Create tables
 ```sql
 CREATE TABLE products( 
     id SERIAL not NULL,
