@@ -1,5 +1,5 @@
 # Web-shop
-##Simple webshop based on Spring
+## Simple webshop based on Spring
 
 ### Installation guide
 
