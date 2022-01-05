@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+
+        <div class="d-flex flex-row-reverse justify-content-between align-items-center">
+            <div class="p-2">
+                <#if login == "false">
+                <a href="/login" class="btn btn-outline-dark">Login</a>
+                <#else>
+                <a href="/users/edit?id=${usrId}" class="btn btn-outline-dark">Edit Personal Info</a> <a href="/logout" class="btn btn-outline-dark">Logout</a>
+            </#if>
+        </div>
+        <div class="p-2 " >
+            <#if login == "false">
+            <strong>You are not logged yet!</strong>
+            <#else>
+            <strong>Logged as: ${usrEmail}</strong>
+        </#if>
+    </div>
+</div>
+
+
+</div>
+</div>

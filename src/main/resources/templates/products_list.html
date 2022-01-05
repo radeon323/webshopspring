@@ -2,21 +2,6 @@
 <html lang="en">
 <head>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const close = document.querySelector('#close');
-      const btn = document.querySelector('#btn');
-      const modal = new bootstrap.Modal(document.querySelector('#modal'));
-      btn.addEventListener('click', function() {
-        modal.show();
-      });
-      close.addEventListener('click', function() {
-        modal.hide();
-      });
-    });
-    </script>
-
-
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,35 +12,13 @@
     <title>Products List</title>
 </head>
 <body>
+
+
 </br>
 <h1 align="center">Products List</h1>
 </br>
 
-<div class="container">
-    <div class="row">
-
-<div class="d-flex flex-row-reverse justify-content-between align-items-center">
-    <div class="p-2">
-        <#if login == "false">
-        <a href="/login" class="btn btn-outline-dark">Login</a>
-        <#else>
-        <a href="/users/edit?id=${usrId}" class="btn btn-outline-dark">Edit Personal Info</a> <a href="/logout" class="btn btn-outline-dark">Logout</a>
-        </#if>
-    </div>
-    <div class="p-2 " >
-        <#if login == "false">
-        <strong>You are not logged yet!</strong>
-        <#else>
-        <strong>Logged as: ${usrEmail}</strong>
-        <img src="resources/img/loading.gif">
-        </#if>
-    </div>
-</div>
-
-
-</div>
-</div>
-
+<#include "header.html"/>
 
 
 <div class="container ">
@@ -107,32 +70,6 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                      <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Successfully deleted!
-            </div>
-            <div class="modal-footer" align="center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close" onclick="location.href = '/products';">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
 <!--
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
