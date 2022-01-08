@@ -3,7 +3,7 @@ package com.luxoft.oleksandr_shevchenko.webshop.web.controller;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.Product;
 import com.luxoft.oleksandr_shevchenko.webshop.service.ProductService;
 import com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,24 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductsController {
 
     private final ProductService productService;
     private final SecurityService securityService;
-
-
-    @Autowired
-    public ProductsController(ProductService productService, SecurityService securityService) {
-        this.productService = productService;
-        this.securityService = securityService;
-    }
-
 
     @GetMapping()
     protected String showAllProducts(HttpServletRequest req, Model model) {
@@ -51,7 +43,7 @@ public class ProductsController {
                         Product product = Product.builder()
                                 .name(name)
                                 .price(Double.parseDouble(price))
-                                .creationDate(Timestamp.valueOf(LocalDateTime.now().withNano(0).withSecond(0)))
+                                .creationDate(LocalDateTime.now().withNano(0).withSecond(0))
                                 .build();
                         productService.add(product);
                     } catch (SQLException e) {

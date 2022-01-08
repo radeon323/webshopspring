@@ -16,7 +16,7 @@ public class ProductRowMapper {
                 id(id)
                 .name(name)
                 .price(price)
-                .creationDate(creationDate)
+                .creationDate(creationDate.toLocalDateTime())
                 .build();
     return product;
     }

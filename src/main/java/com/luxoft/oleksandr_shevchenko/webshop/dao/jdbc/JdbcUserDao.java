@@ -2,7 +2,6 @@ package com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc;
 
 import com.luxoft.oleksandr_shevchenko.webshop.dao.UserDao;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.User;
-
 import java.sql.*;
 import java.util.Objects;
 
@@ -32,6 +31,7 @@ public class JdbcUserDao implements UserDao {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -51,6 +51,7 @@ public class JdbcUserDao implements UserDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -66,6 +67,7 @@ public class JdbcUserDao implements UserDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -81,25 +83,25 @@ public class JdbcUserDao implements UserDao {
             preparedStatement.setString(6, user.getAbout());
             preparedStatement.setInt(7, user.getAge());
             preparedStatement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
     }
 
     @Override
     public User usrFindById(int usrId) {
-        try (Connection connection = connect();) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-                preparedStatement.setInt(1, usrId);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    return buildUser(resultSet);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        try (Connection connection = connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+             preparedStatement.setInt(1, usrId);
+             ResultSet resultSet = preparedStatement.executeQuery();
+             if (resultSet.next()) {
+                 return buildUser(resultSet);
+             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -107,16 +109,16 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByEmail(String usrEmail) {
-        try (Connection connection = connect();) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL)) {
-                preparedStatement.setString(1, usrEmail);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    return buildUser(resultSet);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        try (Connection connection = connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL)) {
+             preparedStatement.setString(1, usrEmail);
+             ResultSet resultSet = preparedStatement.executeQuery();
+             if (resultSet.next()) {
+                return buildUser(resultSet);
+             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -135,7 +137,7 @@ public class JdbcUserDao implements UserDao {
              }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return false;
     }

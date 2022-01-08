@@ -2,10 +2,11 @@ package com.luxoft.oleksandr_shevchenko.webshop.dao.jdbc;
 
 import com.luxoft.oleksandr_shevchenko.webshop.dao.ProductDao;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.Product;
-
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
@@ -32,7 +33,7 @@ public class JdbcProductDao implements ProductDao {
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL);
              ResultSet resultSet = preparedStatement.executeQuery();) {
 
-            List<Product> products = Collections.synchronizedList(new ArrayList<>());
+            List<Product> products = new ArrayList<>();
             while(resultSet.next()) {
                 Product product = PRODUCT_ROW_MAPPER.mapRow(resultSet);
                 products.add(product);
@@ -40,24 +41,25 @@ public class JdbcProductDao implements ProductDao {
             return products;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 
     @Override
     public void add(Product product) {
-        try (Connection connection = connect();) {
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD);
+        try (Connection connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD);) {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
-            preparedStatement.setTimestamp(3, product.getCreationDate());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(product.getCreationDate()));
             preparedStatement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void remove(int id) {
@@ -67,6 +69,7 @@ public class JdbcProductDao implements ProductDao {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -81,33 +84,35 @@ public class JdbcProductDao implements ProductDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public Product prFindById(int id) {
-        try (Connection connection = connect();) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    int pId = resultSet.getInt(1);
-                    String name = resultSet.getString(2);
-                    double price = resultSet.getDouble(3);
-                    Timestamp creationDate = resultSet.getTimestamp(4);
-                    Product product = Product.builder().
-                            id(pId)
-                            .name(name)
-                            .price(price)
-                            .creationDate(creationDate)
-                            .build();
-                    return product;
-                }
+        try (Connection connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int pId = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                double price = resultSet.getDouble(3);
+                Timestamp creationDate = resultSet.getTimestamp(4);
+                Product product = Product.builder().
+                        id(pId)
+                        .name(name)
+                        .price(price)
+                        .creationDate(creationDate.toLocalDateTime())
+                        .build();
+                return product;
             }
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
+       return null;
     }
+
 
 }

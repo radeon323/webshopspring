@@ -39,7 +39,7 @@
                         <th scope="row">${product.id}</th>
                         <td>${product.name}</td>
                         <td>${product.price?string["0.00"]}</td>
-                        <td>${product.creationDate?datetime?string("yyyy/MM/dd HH:mm")}</td>
+                        <td>${product.creationDate?datetime.iso?string["yyyy'/'MM'/'dd  HH:mm"]}</td>
                         <td>
                             <form method="post" action='/products/delete' style="display:inline;" >
                                 <input type="hidden" name="id" value="${product.id}">

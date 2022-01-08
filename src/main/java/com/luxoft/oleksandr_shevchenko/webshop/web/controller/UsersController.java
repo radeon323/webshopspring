@@ -1,14 +1,12 @@
 package com.luxoft.oleksandr_shevchenko.webshop.web.controller;
 
-import com.luxoft.oleksandr_shevchenko.webshop.entity.Product;
 import com.luxoft.oleksandr_shevchenko.webshop.entity.User;
 import com.luxoft.oleksandr_shevchenko.webshop.service.SecurityService;
 import com.luxoft.oleksandr_shevchenko.webshop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,18 +17,11 @@ import java.util.UUID;
 
 @RequestMapping()
 @Controller
+@RequiredArgsConstructor
 public class UsersController {
 
     private final UserService userService;
     private final SecurityService securityService;
-
-
-    @Autowired
-    public UsersController(UserService userService, SecurityService securityService) {
-        this.userService = userService;
-        this.securityService = securityService;
-    }
-
 
     @GetMapping("/login")
     protected String getLoginPage() {

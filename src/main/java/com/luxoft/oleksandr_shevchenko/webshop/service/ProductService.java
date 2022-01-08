@@ -23,7 +23,7 @@ public class ProductService {
 
     public void add(Product product) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        product.setCreationDate(timestamp);
+        product.setCreationDate(timestamp.toLocalDateTime());
         productDao.add(product);
         System.out.println("Add product " + product.getName());
     }
